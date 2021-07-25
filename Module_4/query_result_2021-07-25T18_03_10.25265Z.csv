@@ -1,4 +1,4 @@
-flight_no,flight_id,departure_city,arrivai_airport_name,model,scheduled_arrival,road_time,total_amount,fact_count_seat,real_count_seats,aircraft_occupancy
+flight_no,flight_id,departure_city,arrivai_airport_name,model,scheduled_departure,road_time,total_amount,fact_count_seat,real_count_seats,aircraft_occupancy
 PG0480,136642,Anapa,Belgorod International Airport,Sukhoi Superjet-100,2017-01-30T10:15:00Z,0 years 0 mons 0 days 0 hours 50 mins 0.00 secs,531000.00,97,64,65
 PG0480,136807,Anapa,Belgorod International Airport,Sukhoi Superjet-100,2017-02-23T10:15:00Z,0 years 0 mons 0 days 0 hours 50 mins 0.00 secs,531000.00,97,68,70
 PG0252,136360,Anapa,Sheremetyevo International Airport,Boeing 737-300,2017-02-05T11:45:00Z,0 years 0 mons 0 days 1 hours 40 mins 0.00 secs,1455400.00,130,97,74
