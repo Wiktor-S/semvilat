@@ -6,7 +6,7 @@
 WITH t1 AS 
     (SELECT  
         f.flight_no,
-        f.scheduled_arrival,
+        f.scheduled_departure,
         f.arrival_airport,
         s.aircraft_code,
         air.city AS departure_city,
@@ -43,7 +43,7 @@ SELECT
     t1.departure_city,
     air.airport_name AS arrivai_airport_name,
     a.model,
-    t1.scheduled_arrival,
+    t1.scheduled_departure,
     t1.road_time,
     t2.total_amount,
     t1.fact_count_seat,
@@ -64,7 +64,7 @@ GROUP BY
     t1.departure_city,
     t1.fact_count_seat,
     t1.flight_no,
-    t1.scheduled_arrival,
+    t1.scheduled_departure,
     air.airport_name,
     t1.flight_id,
     t1.road_time,
