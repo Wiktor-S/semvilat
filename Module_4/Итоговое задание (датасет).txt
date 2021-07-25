@@ -1,0 +1,75 @@
+Итоговое задание. Проект 4. Авиарейсы без потерь.
+
+
+Решение:
+
+WITH t1 AS 
+    (SELECT  
+        f.flight_no,
+        f.scheduled_arrival,
+        f.arrival_airport,
+        s.aircraft_code,
+        air.city AS departure_city,
+        f.flight_id,
+        count(s.seat_no) fact_count_seat,
+        (f.scheduled_arrival - f.scheduled_departure) road_time
+    FROM 
+        dst_project.seats s 
+          LEFT JOIN dst_project.flights f
+                ON f.aircraft_code = s.aircraft_code
+          LEFT JOIN dst_project.airports air
+                ON air.airport_code = f.departure_airport
+    WHERE f.departure_airport = 'AAQ' 
+        AND (date_trunc('month', scheduled_departure) IN ('2017-01-01', '2017-02-01','2017-12-01') 
+            AND status NOT IN ('Cancelled'))
+    GROUP BY 
+        s.aircraft_code,
+        departure_city,
+        f.flight_id
+   ),
+    t2 AS
+        (SELECT 
+            t.flight_id,
+            sum(t.amount) AS total_amount, 
+            count(t.fare_conditions) AS real_count_seats
+        FROM 
+            dst_project.ticket_flights t
+        GROUP BY
+            t.flight_id
+         )
+SELECT
+    t1.flight_no,
+    t1.flight_id,
+    t1.departure_city,
+    air.airport_name AS arrivai_airport_name,
+    a.model,
+    t1.scheduled_arrival,
+    t1.road_time,
+    t2.total_amount,
+    t1.fact_count_seat,
+    t2.real_count_seats,
+    t2.real_count_seats * 100 / t1.fact_count_seat AS aircraft_occupancy
+FROM
+    t1
+    LEFT JOIN t2 
+        ON t2.flight_id = t1.flight_id
+    LEFT JOIN dst_project.aircrafts a 
+        ON t1.aircraft_code = a.aircraft_code
+    LEFT JOIN dst_project.airports air 
+        ON air.airport_code = t1.arrival_airport
+WHERE
+    t2.total_amount IS NOT NULL
+GROUP BY
+    a.model,
+    t1.departure_city,
+    t1.fact_count_seat,
+    t1.flight_no,
+    t1.scheduled_arrival,
+    air.airport_name,
+    t1.flight_id,
+    t1.road_time,
+    t2.total_amount,
+    t2.real_count_seats
+ORDER BY 
+   aircraft_occupancy 
+LIMIT 10 

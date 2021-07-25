@@ -1,0 +1,17 @@
+Условие:
+ Мест какого класса у SU9 больше всего?
+
+
+
+Решение:
+SELECT
+    DISTINCT fare_conditions,
+    count(fare_conditions)
+FROM 
+    dst_project.seats
+WHERE
+    aircraft_code = 'SU9'
+GROUP BY 
+    fare_conditions 
+ORDER BY 
+    fare_conditions   

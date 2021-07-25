@@ -1,0 +1,10 @@
+Условие:
+   Сколько минут составляет запланированное время полета в самом длительном рейсе?
+
+
+
+Решение:
+SELECT
+    max(extract(epoch
+		FROM (f.scheduled_arrival - f.scheduled_departure))) / 60 AS road_time
+FROM dst_project.flights AS f;

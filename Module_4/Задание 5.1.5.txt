@@ -1,0 +1,28 @@
+Условие:
+	Какая модель самолета летящего на рейсах из Анапы имеет больше всего мест?
+
+
+
+
+
+Решение:
+WITH t1 AS 
+    (SELECT  
+        aircraft_code, 
+        count(seat_no) count_seat
+    FROM 
+        dst_project.seats s
+    GROUP BY 
+        aircraft_code)
+SELECT
+    t1.count_seat,
+    a.model
+FROM
+    dst_project.flights f
+    	JOIN t1 ON f.aircraft_code = t1.aircraft_code
+    	JOIN dst_project.aircrafts a ON f.aircraft_code = a.aircraft_code
+WHERE
+    f.departure_airport = 'AAQ'
+GROUP BY
+    a.model,
+    t1.count_seat
