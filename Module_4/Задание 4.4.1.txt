@@ -1,0 +1,9 @@
+Условие:
+    Когда был запланирован самый первый вылет, сохраненный в базе данных? 
+
+
+Решение:
+SELECT  
+   min(f.scheduled_departure)
+FROM
+   dst_project.flights f

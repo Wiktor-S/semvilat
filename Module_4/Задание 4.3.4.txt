@@ -1,0 +1,22 @@
+Условие:
+    У какого рейса была самая большая задержка прибытия за все время сбора данных?
+ Введите id рейса (flight_id).	
+
+
+
+Решение:
+SELECT DISTINCT
+    f.flight_id,
+    f.actual_arrival - f.scheduled_arrival AS delay_time
+FROM
+    dst_project.flights f
+WHERE
+    (f.actual_arrival - f.scheduled_arrival) = 
+        (
+        SELECT 
+            max(f.actual_arrival - f.scheduled_arrival)
+        FROM 
+	    dst_project.flights f)
+    AND status = 'Arrived'
+
+

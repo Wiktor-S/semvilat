@@ -1,0 +1,20 @@
+Условие:
+	Сколько рейсов из Анапы не летают в Москву?
+
+
+
+
+
+Решение:
+SELECT 
+    f.arrival_airport,
+    count(f.flight_no) AS quantity
+FROM 
+    dst_project.flights f 
+WHERE 
+    f.departure_airport = 'AAQ' 
+	AND f.arrival_airport not in ('SVO')
+GROUP BY 
+    f.arrival_airport 
+ORDER BY 
+    f.arrival_airport

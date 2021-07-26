@@ -1,0 +1,17 @@
+Задание 4.1.txt
+Условие:
+База данных содержит список аэропортов практически всех крупных городов России.
+ В большинстве городов есть только один аэропорт. Исключение составляет:
+
+
+Решение:
+SELECT
+    city
+FROM
+    dst_project.airports
+GROUP BY
+    city
+HAVING
+    count(airports.latitude/airports.longitude) > 1 
+ORDER BY 
+    city
